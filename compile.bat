@@ -5,7 +5,7 @@ cls
 echo.
 echo Compiling...
 echo.
-g++ knights_tour.cpp -o knights_tour.exe
+g++ knights_tour.cpp -o knights_tour
 echo.
 echo Done!
 echo.
