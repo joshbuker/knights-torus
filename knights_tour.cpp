@@ -12,7 +12,7 @@
 using namespace std;
 
 // Define globals
-int directions[8][2] = 
+int directions[8][2] =
 {
 	{1,2},
 	{2,1},
@@ -379,7 +379,7 @@ void print_path()
 // Will ensure that provided solution is a real solution (completely foolproof assuming the user doesn't intentionally fudge width/height)
 bool validTour(vector< vector<int> > input,int width,int height,bool fromZero)
 {
-	const int dirs[8][2] = 
+	const int dirs[8][2] =
 	{
 		{1,2},
 		{2,1},
@@ -431,7 +431,7 @@ bool validTour(vector< vector<int> > input,int width,int height,bool fromZero)
 			}
 		}
 	}
-	
+
 	// If any move is not a valid Knight's Move
 	for(unsigned int x=0;x<input.size()-1;x++)
 	{
@@ -494,7 +494,7 @@ int main(int argc, char *argv[])
 		cout << argv[i] << endl;
 	}
 	*/
-	
+
 	istringstream ssX(argv[1]);
 	istringstream ssY(argv[2]);
 	istringstream sbX(argv[3]);
@@ -520,7 +520,7 @@ int main(int argc, char *argv[])
 		cerr << "Invalid number " << argv[4] << '\n';
 		return -1;
 	}
-	
+
 	if(sX < 1 || sX > bX)
 	{
 		cout << "Starting X position was invalid: ";
@@ -545,8 +545,7 @@ int main(int argc, char *argv[])
 		cout << bY << endl;
 		return -3;
 	}
-	
-	
+
 	clock_t begin = clock(); // Get starting time.
 	CurPos mousePos = getCursorPos();
 	mouseX = mousePos.x;
