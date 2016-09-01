@@ -1,12 +1,33 @@
 #include <vector>
+#include <time.h>
+#include <math.h>
 // IMPORT ALLLLL THE STREAMS
 #include <iostream>
 #include <fstream>
 #include <sstream>
+// Platform Specific Includes
+#ifdef defined __linux__
+// Linux Headers
+#error "Linux not supported (yet)"
+// End Linux Headers
+#elif defined __APPLE__ || defined __MACH__
+// Mac OS X Headers
+#include <curses.h>
+#ifndef POSIX
+#define POSIX
+#endif
+// End Mac OS X Headers
+#elif defined _WIN32 || defined _WIN64
+// Windows Headers
 #include <Windows.h>
 #include <conio.h>
-#include <time.h>
-#include <math.h>
+#ifndef WINDOWS
+#define WINDOWS
+#endif
+// End Windows Headers
+#else
+#error "Unknown Platform"
+#endif
 
 // I'm lazy
 using namespace std;
@@ -254,6 +275,7 @@ void move()
 	}
 }
 
+#ifdef WINDOWS
 // Found on the internets
 
 struct CurPos
@@ -289,12 +311,14 @@ void gotoxy( int column, int line )
     coord
     );
 }
+#endif
 
 void print_progress()
 {
+#ifdef WINDOWS
 	gotoxy(mouseX,mouseY);
-    cout << "Total Moves: ";
-    cout << maxMoves << endl;
+  cout << "Total Moves: ";
+  cout << maxMoves << endl;
 	cout << "Current Move: ";
 	cout << solution.size() << endl;
 	/*for(int x=0;x<boardWidth;x++)
@@ -306,12 +330,15 @@ void print_progress()
 		}
 		cout << endl;
 	}*/
-    if(!failedMoves.empty())
-    {
-        cout << endl;
-        cout << "# Failed Moves: ";
-        cout << failedMoves.size() << endl;
-    }
+  if(!failedMoves.empty())
+  {
+    cout << endl;
+    cout << "# Failed Moves: ";
+    cout << failedMoves.size() << endl;
+  }
+#else
+  cout << "POSIX Implementation Coming Soon" << endl;
+#endif
 }
 
 void start(int x,int y,int boardX,int boardY)
@@ -342,7 +369,9 @@ void start(int x,int y,int boardX,int boardY)
 	while(!done())
 	{
 		move();
+#ifdef WINDOWS
 		print_progress();
+#endif
 		//Sleep(20);
 	}
 }
@@ -547,9 +576,11 @@ int main(int argc, char *argv[])
 	}
 
 	clock_t begin = clock(); // Get starting time.
+#ifdef WINDOWS
 	CurPos mousePos = getCursorPos();
 	mouseX = mousePos.x;
 	mouseY = mousePos.y;
+#endif
 	cout << "Calculating..." << endl;
 	start(sX,sY, bX,bY); // Starting position followed by board size.
 	cout << endl;
@@ -594,6 +625,10 @@ int main(int argc, char *argv[])
 	{
 		cout << "Failed!" << endl;
 	}
+#ifdef WINDOWS
 	Beep(261,1000);
+#else
+	cout << "\007";
+#endif
 	return 0;
 }
