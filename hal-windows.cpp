@@ -1,7 +1,10 @@
-// #ifdef defined _WIN32 || defined _WIN64 || defined WINDOWS
 #include <Windows.h>
 #include <conio.h>
 #include "hal.hpp"
+
+using namespace std;
+
+int mouseX,mouseY;
 
 void playBeep()
 {
@@ -29,6 +32,13 @@ CurPos getCursorPos()
   return pos;
 }
 
+void setCursorPos()
+{
+  CurPos mousePos = getCursorPos();
+  mouseX = mousePos.x;
+  mouseY = mousePos.y;
+}
+
 void gotoxy( int column, int line )
 {
   COORD coord;
@@ -41,13 +51,13 @@ void gotoxy( int column, int line )
   );
 }
 
-void printProgress()
+void printProgress(int totalMoves, int currentMove, int failedMoves)
 {
   gotoxy(mouseX,mouseY);
   cout << "Total Moves: ";
-  cout << maxMoves << endl;
+  cout << totalMoves << endl;
   cout << "Current Move: ";
-  cout << solution.size() << endl;
+  cout << currentMove << endl;
   /*for(int x=0;x<boardWidth;x++)
   {
     for(int y=0;y<boardHeight;y++)
@@ -57,11 +67,10 @@ void printProgress()
     }
     cout << endl;
   }*/
-  if(!failedMoves.empty())
+  if(failedMoves > 0)
   {
     cout << endl;
     cout << "# Failed Moves: ";
-    cout << failedMoves.size() << endl;
+    cout << failedMoves << endl;
   }
 }
-// #endif

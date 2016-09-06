@@ -32,7 +32,6 @@ vector< vector<int> > boardMoves;
 vector< vector<bool> > boardVisited;
 
 int boardWidth,boardHeight,currentMove,maxMoves;
-int mouseX,mouseY;
 bool escape = false;
 
 bool done()
@@ -281,7 +280,14 @@ void start(int x,int y,int boardX,int boardY)
 	while(!done())
 	{
 		move();
-		printProgress();
+		if(failedMoves.empty())
+		{
+			printProgress(maxMoves, solution.size(), 0);
+		}
+		else
+		{
+			printProgress(maxMoves, solution.size(), failedMoves.size());
+		}
 	}
 }
 
@@ -485,7 +491,7 @@ int main(int argc, char *argv[])
 	}
 
 	clock_t begin = clock(); // Get starting time.
-	setCursorPos(mouseX, mouseY);
+	setCursorPos(); // Overwrite calculating once done initializing
 	cout << "Calculating..." << endl;
 	start(sX,sY, bX,bY); // Starting position followed by board size.
 	cout << endl;
