@@ -1,5 +1,4 @@
 #include <vector>
-#include <time.h>
 #include <math.h>
 // IMPORT ALLLLL THE STREAMS
 #include <iostream>
@@ -490,13 +489,13 @@ int main(int argc, char *argv[])
     return -3;
   }
 
-  clock_t begin = clock(); // Get starting time.
+  startWatch(); // Get starting time.
   setCursorPos(); // Overwrite calculating once done initializing
   cout << "Calculating..." << endl;
   start(sX,sY, bX,bY); // Starting position followed by board size.
   cout << endl;
-  clock_t end=clock(); // Get ending time.
-  long runningTime=end-begin; // Set total time
+  stopWatch(); // Get ending time.
+  long runningTime = watchTime(); // Set total time
   //printSolution();
   cout << endl;
   //printPath();
@@ -528,8 +527,10 @@ int main(int argc, char *argv[])
   {
     cout << "Success!" << endl;
     stringstream ss;
-        ss << "Tour Solution " << boardWidth << "x" << boardHeight << ".txt";
-        string tourFileName = ss.str();
+    ss << "Tour Solution "
+       << boardWidth << "x" << boardHeight
+       << ".txt";
+    string tourFileName = ss.str();
     save(tourFileName);
   }
   else

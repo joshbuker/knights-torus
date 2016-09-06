@@ -21,10 +21,28 @@ using namespace std;
 #define LIGHT_RED "1;31"
 #define LIGHT_PURPLE "1;35"
 
+chrono::time_point<chrono::system_clock> startTime,endTime;
+
 // Usage: color(BLUE);
 void color(string colorCode)
 {
   cout << "\033[" << colorCode << "m";
+}
+
+void startWatch()
+{
+  startTime = chrono::system_clock::now();
+}
+
+void stopWatch()
+{
+  endTime = chrono::system_clock::now();
+}
+
+long watchTime()
+{
+  chrono::duration<double> elapsed_seconds = endTime-startTime;
+  return (long)(elapsed_seconds.count()*1000);
 }
 
 void playBeep()

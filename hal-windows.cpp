@@ -1,10 +1,27 @@
 #include <Windows.h>
+#include <time.h>
 #include <conio.h>
 #include "hal.hpp"
 
 using namespace std;
 
 int mouseX,mouseY;
+clock_t begin,end;
+
+void startWatch()
+{
+  begin = clock();
+}
+
+void stopWatch()
+{
+  end = clock();
+}
+
+long watchTime()
+{
+  return (end-begin);
+}
 
 void playBeep()
 {
