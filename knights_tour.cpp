@@ -256,7 +256,7 @@ void move()
       // Add critical points if they haven't failed previously
       if(failedMoves.empty())
       {
-        temp.resize(5);
+        temp.resize(3);
         for(int x=1;x<possibleMoves.size();x++)
         {
           if(possibleMoves[x-1][0]==possibleMoves[x][0])
@@ -264,6 +264,16 @@ void move()
             temp[0]=solution.size();
             temp[1]=possibleMoves[x][1];
             temp[2]=possibleMoves[x][2];
+
+            /*
+            // Debugging
+            cout << "Size: " << temp[0] << endl;
+            cout << "Current X: " << currentX << endl;
+            cout << "Current Y: " << currentY << endl;
+            cout << "X: " << temp[1] << endl;
+            cout << "Y: " << temp[2] << endl;
+            cout << endl;
+            */
 
             criticalPoints.push_back(temp);
           }
@@ -275,7 +285,37 @@ void move()
       }
       else
       {
-        // TODO: Check for new critical points even after having failedMoves (check if possible critical point has already failed)
+        // FIXME: Failed moves goes from 13 to 5 when using knights_tour.bin 1 1 5 256 when this is activated - investigate this
+        /*
+        temp.resize(3);
+        for(int x=1;x<possibleMoves.size();x++)
+        {
+          if(possibleMoves[x-1][0]==possibleMoves[x][0])
+          {
+            bool failed = false;
+            for(int y=0;y<failedMoves.size();y++)
+            {
+              if(failedMoves[y][1]==currentX &&
+                 failedMoves[y][2]==currentY &&
+                 failedMoves[y][3]==possibleMoves[x][1] &&
+                 failedMoves[y][4]==possibleMoves[x][2])
+                failed=true;
+            }
+            if(!failed)
+            {
+              temp[0]=solution.size();
+              temp[1]=possibleMoves[x][1];
+              temp[2]=possibleMoves[x][2];
+
+              criticalPoints.push_back(temp);
+            }
+          }
+          else
+          {
+            break;
+          }
+        }
+        */
       }
       temp.resize(2);
       temp[0]=possibleMoves[0][1];
