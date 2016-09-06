@@ -28,6 +28,7 @@ vector< vector<int> > solution;
 vector< vector<int> > failedMoves;
 vector< vector<int> > multipleMoves;
 vector< vector<int> > boardMoves;
+vector< vector<int> > criticalPoints;
 vector< vector<bool> > boardVisited;
 
 int boardWidth,boardHeight,currentMove,maxMoves;
@@ -162,19 +163,50 @@ void recalculateBoard(int x,int y)
 
 void backUp()
 {
-  vector<int> temp;
-  temp.resize(5);
-  temp[0]=solution.size();
-  temp[1]=solution[solution.size()-1][0];
-  temp[2]=solution[solution.size()-1][1];
-  if(solution.size()>1)
+  // TODO: better way to get last element?
+  if(!criticalPoints.empty())
   {
-    temp[3]=solution[solution.size()-2][0];
-    temp[4]=solution[solution.size()-2][1];
+    while(solution.size()!=criticalPoints[criticalPoints.size()-1][0]+1)
+    {
+      if(solution.empty())
+      {
+        escape=true;
+        return; // Something went horribly wrong, lets gtfo
+      }
+      else
+        solution.pop_back();
+    }
+    vector<int> temp;
+    temp.resize(5);
+    temp[0]=solution.size();
+    temp[1]=solution[solution.size()-1][0];
+    temp[2]=solution[solution.size()-1][1];
+    if(solution.size()>1)
+    {
+      temp[3]=solution[solution.size()-2][0];
+      temp[4]=solution[solution.size()-2][1];
+    }
+    else
+    {
+      temp[3]=0;
+      temp[4]=0;
+    }
+    failedMoves.push_back(temp);
+    solution.pop_back();
+
+    temp.resize(2);
+    temp[0] = criticalPoints[criticalPoints.size()-1][1];
+    temp[1] = criticalPoints[criticalPoints.size()-1][2];
+
+    solution.push_back(temp);
+    recalculateVisited(temp[0],temp[1]);
+    criticalPoints.pop_back();
   }
-  failedMoves.push_back(temp);
-  solution.pop_back();
-  recalculateVisited(temp[1],temp[2]);
+  else
+  {
+    escape=true;
+    return;
+  }
 }
 
 void move()
@@ -186,7 +218,6 @@ void move()
   int currentX=solution[solution.size()-1][0];
   int currentY=solution[solution.size()-1][1];
   recalculateBoard(currentX,currentY);
-  //recalculateBoard();
   for(int z=0;z<8;z++)
   {
     if(!visited(currentX+directions[z][0],currentY+directions[z][1],solution.size()+1))
@@ -201,17 +232,17 @@ void move()
   {
     if(possibleMoves.size()==1)
     {
-      vector<int> temp2;
-      temp2.resize(2);
-      temp2[0]=possibleMoves[0][1];
-      temp2[1]=possibleMoves[0][2];
+      temp.resize(2);
+      temp[0]=possibleMoves[0][1];
+      temp[1]=possibleMoves[0][2];
 
-      solution.push_back(temp2);
+      solution.push_back(temp);
 
-      recalculateVisited(temp2[0],temp2[1]);
+      recalculateVisited(temp[0],temp[1]);
     }
     else
     {
+      // Sort possible moves from lowest to highest
       for(unsigned int x = 0;x<=possibleMoves.size();x++)
       {
         for(int y = possibleMoves.size()-1;y>0;y--)
@@ -222,14 +253,37 @@ void move()
           }
         }
       }
-      vector<int> temp2;
-      temp2.resize(2);
-      temp2[0]=possibleMoves[0][1];
-      temp2[1]=possibleMoves[0][2];
+      // Add critical points if they haven't failed previously
+      if(failedMoves.empty())
+      {
+        temp.resize(5);
+        for(int x=1;x<possibleMoves.size();x++)
+        {
+          if(possibleMoves[x-1][0]==possibleMoves[x][0])
+          {
+            temp[0]=solution.size();
+            temp[1]=possibleMoves[x][1];
+            temp[2]=possibleMoves[x][2];
 
-      solution.push_back(temp2);
+            criticalPoints.push_back(temp);
+          }
+          else
+          {
+            break;
+          }
+        }
+      }
+      else
+      {
+        // TODO: Check for new critical points even after having failedMoves (check if possible critical point has already failed)
+      }
+      temp.resize(2);
+      temp[0]=possibleMoves[0][1];
+      temp[1]=possibleMoves[0][2];
 
-      recalculateVisited(temp2[0],temp2[1]);
+      solution.push_back(temp);
+
+      recalculateVisited(temp[0],temp[1]);
     }
   }
   else
