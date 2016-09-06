@@ -280,13 +280,9 @@ void start(int x,int y,int boardX,int boardY)
   {
     move();
     if(failedMoves.empty())
-    {
       printProgress(maxMoves, solution.size(), 0);
-    }
     else
-    {
       printProgress(maxMoves, solution.size(), failedMoves.size());
-    }
   }
 }
 
