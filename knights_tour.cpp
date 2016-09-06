@@ -426,7 +426,8 @@ int main(int argc, char *argv[])
     cout << " arguments." << endl;
     return -2;
   }
-  /* Argument Debugging Code
+  /*
+  // Argument Debugging Code
   cout << "Number of arguments: ";
   cout << argc << endl;
   for(int i=0; i<argc; i++)
