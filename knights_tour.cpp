@@ -31,7 +31,9 @@ vector< vector<int> > boardMoves;
 vector< vector<int> > criticalPoints;
 vector< vector<bool> > boardVisited;
 
-int boardWidth,boardHeight,currentMove,maxMoves;
+int boardWidth,boardHeight;
+int currentMove,maxMoves;
+int totalFailedMoves,lastCrit = 0;
 bool escape = false;
 
 bool done()
@@ -163,50 +165,47 @@ void recalculateBoard(int x,int y)
 
 void backUp()
 {
-  // TODO: better way to get last element?
-  if(!criticalPoints.empty())
-  {
-    while(solution.size()!=criticalPoints[criticalPoints.size()-1][0]+1)
-    {
-      if(solution.empty())
-      {
-        escape=true;
-        return; // Something went horribly wrong, lets gtfo
-      }
-      else
-        solution.pop_back();
-    }
-    vector<int> temp;
-    temp.resize(5);
-    temp[0]=solution.size();
-    temp[1]=solution[solution.size()-1][0];
-    temp[2]=solution[solution.size()-1][1];
-    if(solution.size()>1)
-    {
-      temp[3]=solution[solution.size()-2][0];
-      temp[4]=solution[solution.size()-2][1];
-    }
-    else
-    {
-      temp[3]=0;
-      temp[4]=0;
-    }
-    failedMoves.push_back(temp);
-    solution.pop_back();
-
-    temp.resize(2);
-    temp[0] = criticalPoints[criticalPoints.size()-1][1];
-    temp[1] = criticalPoints[criticalPoints.size()-1][2];
-
-    solution.push_back(temp);
-    recalculateVisited(temp[0],temp[1]);
-    criticalPoints.pop_back();
-  }
-  else
+  if(solution.empty() || criticalPoints.empty())
   {
     escape=true;
     return;
   }
+  if(lastCrit==0)
+    lastCrit = solution.size();
+  // TODO: better way to get last element?
+  while(solution.size()>criticalPoints[criticalPoints.size()-1][0]+1)
+    solution.pop_back();
+  if(lastCrit!=solution.size())
+  {
+    failedMoves.clear();
+    lastCrit = solution.size();
+  }
+  vector<int> temp;
+  temp.resize(5);
+  temp[0]=solution.size();
+  temp[1]=solution[solution.size()-1][0];
+  temp[2]=solution[solution.size()-1][1];
+  if(solution.size()>1)
+  {
+    temp[3]=solution[solution.size()-2][0];
+    temp[4]=solution[solution.size()-2][1];
+  }
+  else
+  {
+    temp[3]=0;
+    temp[4]=0;
+  }
+  failedMoves.push_back(temp);
+  totalFailedMoves++;
+  solution.pop_back();
+
+  temp.resize(2);
+  temp[0] = criticalPoints[criticalPoints.size()-1][1];
+  temp[1] = criticalPoints[criticalPoints.size()-1][2];
+
+  solution.push_back(temp);
+  recalculateVisited(temp[0],temp[1]);
+  criticalPoints.pop_back();
 }
 
 void move()
@@ -265,57 +264,11 @@ void move()
             temp[1]=possibleMoves[x][1];
             temp[2]=possibleMoves[x][2];
 
-            /*
-            // Debugging
-            cout << "Size: " << temp[0] << endl;
-            cout << "Current X: " << currentX << endl;
-            cout << "Current Y: " << currentY << endl;
-            cout << "X: " << temp[1] << endl;
-            cout << "Y: " << temp[2] << endl;
-            cout << endl;
-            */
-
             criticalPoints.push_back(temp);
           }
           else
-          {
             break;
-          }
         }
-      }
-      else
-      {
-        // FIXME: Failed moves goes from 13 to 5 when using knights_tour.bin 1 1 5 256 when this is activated - investigate this
-        /*
-        temp.resize(3);
-        for(int x=1;x<possibleMoves.size();x++)
-        {
-          if(possibleMoves[x-1][0]==possibleMoves[x][0])
-          {
-            bool failed = false;
-            for(int y=0;y<failedMoves.size();y++)
-            {
-              if(failedMoves[y][1]==currentX &&
-                 failedMoves[y][2]==currentY &&
-                 failedMoves[y][3]==possibleMoves[x][1] &&
-                 failedMoves[y][4]==possibleMoves[x][2])
-                failed=true;
-            }
-            if(!failed)
-            {
-              temp[0]=solution.size();
-              temp[1]=possibleMoves[x][1];
-              temp[2]=possibleMoves[x][2];
-
-              criticalPoints.push_back(temp);
-            }
-          }
-          else
-          {
-            break;
-          }
-        }
-        */
       }
       temp.resize(2);
       temp[0]=possibleMoves[0][1];
@@ -373,10 +326,7 @@ void start(int x,int y,int boardX,int boardY)
   while(!done())
   {
     move();
-    if(failedMoves.empty())
-      printProgress(maxMoves, solution.size(), 0);
-    else
-      printProgress(maxMoves, solution.size(), failedMoves.size());
+    printProgress(maxMoves, solution.size(), totalFailedMoves);
   }
 }
 
