@@ -171,14 +171,14 @@ void backUp()
     return;
   }
   if(lastCrit==0)
-    lastCrit = solution.size();
+    lastCrit = criticalPoints[criticalPoints.size()-1][0];
   // TODO: better way to get last element?
   while(solution.size()>criticalPoints[criticalPoints.size()-1][0]+1)
     solution.pop_back();
-  if(lastCrit!=solution.size())
+  if(lastCrit!=criticalPoints[criticalPoints.size()-1][0])
   {
     failedMoves.clear();
-    lastCrit = solution.size();
+    lastCrit = criticalPoints[criticalPoints.size()-1][0];
   }
   vector<int> temp;
   temp.resize(5);
