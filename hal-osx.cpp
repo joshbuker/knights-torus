@@ -61,7 +61,7 @@ void resetCursor()
   cout << "\033[u"; // Restore Position
 }
 
-void printProgress(int totalMoves, int currentMove, int failedMoves)
+void printProgress(const int & totalMoves, const int & currentMove, const int & failedMoves)
 {
   resetCursor();
   color(LIGHT_GRAY);

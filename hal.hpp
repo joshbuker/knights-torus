@@ -5,5 +5,5 @@ void stopWatch();
 long watchTime();
 void playBeep();
 void setCursorPos();
-void printProgress(int totalMoves, int currentMove, int failedMoves);
+void printProgress(const int & totalMoves, const int & currentMove, const int & failedMoves);
 #endif

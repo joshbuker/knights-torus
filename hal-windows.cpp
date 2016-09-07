@@ -1,6 +1,7 @@
 #include <Windows.h>
 #include <time.h>
-#include <conio.h>
+#include <iostream>
+// #include <conio.h>
 #include "hal.hpp"
 
 using namespace std;
@@ -68,22 +69,13 @@ void gotoxy( int column, int line )
   );
 }
 
-void printProgress(int totalMoves, int currentMove, int failedMoves)
+void printProgress(const int & totalMoves, const int & currentMove, const int & failedMoves)
 {
   gotoxy(mouseX,mouseY);
   cout << "Total Moves: ";
   cout << totalMoves << endl;
   cout << "Current Move: ";
   cout << currentMove << endl;
-  /*for(int x=0;x<boardWidth;x++)
-  {
-    for(int y=0;y<boardHeight;y++)
-    {
-      cout << boardMoves[x][y];
-      cout << " ";
-    }
-    cout << endl;
-  }*/
   if(failedMoves > 0)
   {
     cout << endl;
