@@ -517,13 +517,13 @@ int main(int argc, char *argv[])
     cout << sY << endl;
     return -3;
   }
-  if(bX < 4)
+  if(bX < 3)
   {
     cout << "Board width was too small: ";
     cout << bX << endl;
     return -3;
   }
-  if(bY < 4)
+  if(bY < 3)
   {
     cout << "Board height was too small: ";
     cout << bY << endl;
