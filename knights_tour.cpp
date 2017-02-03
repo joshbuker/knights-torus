@@ -38,7 +38,7 @@ bool escape = false;
 
 bool done()
 {
-  if(escape||solution.size()==0)
+  if(escape||solution.empty())
   {
     return true;
   }
@@ -61,7 +61,8 @@ bool visited(int x,int y)
   {
     return true;
   }
-  for(unsigned int z=0;z<solution.size();z++)
+  unsigned int solution_size = solution.size();
+  for(unsigned int z=0;z<solution_size;z++)
   {
     if(x==solution[z][0] && y==solution[z][1])
     {
@@ -77,20 +78,22 @@ bool visited(int x,int y,int move)
   {
     return true;
   }
-  for(unsigned int z=0;z<solution.size();z++)
+  unsigned int solution_size = solution.size();
+  for(unsigned int z=0;z<solution_size;z++)
   {
     if(x==solution[z][0] && y==solution[z][1])
     {
       return true;
     }
   }
-  for(unsigned int z=0;z<failedMoves.size();z++)
+  unsigned int failedMoves_size = failedMoves.size();
+  for(unsigned int z=0;z<failedMoves_size;z++)
   {
     if(move==failedMoves[z][0])
     {
       if(x==failedMoves[z][1] && y==failedMoves[z][2])
       {
-        if(solution[solution.size()-1][0]==failedMoves[z][3] && solution[solution.size()-1][1]==failedMoves[z][4])
+        if(solution[solution_size-1][0]==failedMoves[z][3] && solution[solution_size-1][1]==failedMoves[z][4])
         {
           return true;
         }
@@ -540,7 +543,7 @@ int main(int argc, char *argv[])
   //printSolution();
   cout << endl;
   //printPath();
-  if(solution.size()==0)
+  if(solution.empty())
   {
     cout << boardWidth;
     cout << "x";
