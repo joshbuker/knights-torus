@@ -69,17 +69,21 @@ void gotoxy( int column, int line )
   );
 }
 
-void printProgress(const int & totalMoves, const int & currentMove, const int & failedMoves)
+void printProgress(const int & totalMoves, const int & currentMove, const int & totalFailedMoves, const int & currentFailedMoves, const int & criticalPointsRemaining)
 {
   gotoxy(mouseX,mouseY);
   cout << "Total Moves: ";
   cout << totalMoves << endl;
   cout << "Current Move: ";
   cout << currentMove << endl;
-  if(failedMoves > 0)
+  if(totalFailedMoves > 0)
   {
     cout << endl;
-    cout << "# Failed Moves: ";
-    cout << failedMoves << endl;
+    cout << "# Total Failed Moves: ";
+    cout << totalFailedMoves << endl;
+    cout << "# Current Failed Moves: ";
+    cout << currentFailedMoves
+    cout << "# Critical Points Remaining: ";
+    cout << criticalPointsRemaining
   }
 }

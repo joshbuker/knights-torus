@@ -329,7 +329,7 @@ void start(int x,int y,int boardX,int boardY)
   while(!done())
   {
     move();
-    printProgress(maxMoves, solution.size(), totalFailedMoves);
+    printProgress(maxMoves, solution.size(), totalFailedMoves, failedMoves.size(), criticalPoints.size());
   }
 }
 
@@ -363,7 +363,7 @@ void printPath()
   }
 }
 // Will ensure that provided solution is a real solution (completely foolproof assuming the user doesn't intentionally fudge width/height)
-bool validTour(vector< vector<int> > input,int width,int height,bool fromZero)
+bool validTour(vector< vector<int> > input, int width, int height, bool fromZero)
 {
   const int dirs[8][2] =
   {

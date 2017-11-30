@@ -61,7 +61,7 @@ void resetCursor()
   cout << "\033[u"; // Restore Position
 }
 
-void printProgress(const int & totalMoves, const int & currentMove, const int & failedMoves)
+void printProgress(const int & totalMoves, const int & currentMove, const int & totalFailedMoves, const int & currentFailedMoves, const int & criticalPointsRemaining)
 {
   resetCursor();
   color(LIGHT_GRAY);
@@ -72,13 +72,21 @@ void printProgress(const int & totalMoves, const int & currentMove, const int & 
   cout << "\rCurrent Move: ";
   color(LIGHT_GREEN);
   cout << currentMove << endl;
-  if(failedMoves > 0)
+  if(totalFailedMoves > 0)
   {
     cout << endl;
     color(LIGHT_GRAY);
-    cout << "\r# Failed Moves: ";
+    cout << "\r# Total Failed Moves: ";
     color(LIGHT_RED);
-    cout << failedMoves << endl;
+    cout << totalFailedMoves << endl;
+    color(LIGHT_GRAY);
+    cout << "\r# Current Failed Moves: ";
+    color(LIGHT_RED);
+    cout << currentFailedMoves << endl;
+    color(LIGHT_GRAY);
+    cout << "\r# Critical Points Remaining: ";
+    color(WHITE);
+    cout << criticalPointsRemaining << endl;
   }
   color(LIGHT_GRAY);
 }
