@@ -177,7 +177,13 @@ void backUp()
     lastCrit = criticalPoints[criticalPoints.size()-1][0];
   // TODO: better way to get last element?
   while(solution.size()>criticalPoints[criticalPoints.size()-1][0]+1)
+  {
+    int x=solution.back()[0];
+    int y=solution.back()[1];
+    boardVisited[x-1][y-1]=false;
+    recalculateBoard(x, y);
     solution.pop_back();
+  }
   if(lastCrit!=criticalPoints[criticalPoints.size()-1][0])
   {
     failedMoves.clear();
@@ -200,6 +206,10 @@ void backUp()
   }
   failedMoves.push_back(temp);
   totalFailedMoves++;
+  int x=solution.back()[0];
+  int y=solution.back()[1];
+  boardVisited[x-1][y-1]=false;
+  recalculateBoard(x, y);
   solution.pop_back();
 
   temp.resize(2);
