@@ -61,6 +61,23 @@ void reset_cursor()
   cout << "\033[u"; // Restore Position
 }
 
+void print_backup_progress()
+{
+  cout << endl;
+  color(LIGHT_GRAY);
+  cout << "\r# Total Failed Moves: ";
+  color(LIGHT_RED);
+  cout << total_failed_moves << endl;
+  color(LIGHT_GRAY);
+  cout << "\r# Current Failed Moves: ";
+  color(LIGHT_RED);
+  cout << failed_moves.size() << endl;
+  color(LIGHT_GRAY);
+  cout << "\r# Critical Points Remaining: ";
+  color(WHITE);
+  cout << critical_points.size() << endl;
+}
+
 void print_progress()
 {
   reset_cursor();
@@ -73,20 +90,6 @@ void print_progress()
   color(LIGHT_GREEN);
   cout << solution.size() << endl;
   if(total_failed_moves > 0)
-  {
-    cout << endl;
-    color(LIGHT_GRAY);
-    cout << "\r# Total Failed Moves: ";
-    color(LIGHT_RED);
-    cout << total_failed_moves << endl;
-    color(LIGHT_GRAY);
-    cout << "\r# Current Failed Moves: ";
-    color(LIGHT_RED);
-    cout << failed_moves.size() << endl;
-    color(LIGHT_GRAY);
-    cout << "\r# Critical Points Remaining: ";
-    color(WHITE);
-    cout << critical_points.size() << endl;
-  }
+    print_backup_progress();
   color(LIGHT_GRAY);
 }

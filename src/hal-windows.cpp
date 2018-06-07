@@ -1,8 +1,8 @@
+#include "hal.hpp"
+#include "common.hpp"
 #include <Windows.h>
 #include <time.h>
-#include <iostream>
 // #include <conio.h>
-#include "hal.hpp"
 
 using namespace std;
 
