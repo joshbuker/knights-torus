@@ -5,7 +5,7 @@ cls
 echo.
 echo Compiling...
 echo.
-g++ knights_tour.cpp hal-windows.cpp -o knights_tour
+g++ ./src/knights_tour.cpp ./src/parameters.cpp ./src/solver.cpp ./src/validator.cpp ./src/hal-windows.cpp -o ./bin/knights_tour
 echo.
 echo Done!
 echo.

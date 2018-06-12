@@ -18,7 +18,7 @@ set /a bX=%current%
 set /a bY=%current%
 set /a sX=%current%/2
 set /a sY=%current%/2
-"%cd%\knights_tour.exe" %sX% %sY% %bX% %bY%
+"%cd%\bin\knights_tour.exe" %sX% %sY% %bX% %bY%
 echo.
 if %current% gtr %final% goto eof
 if %current%==%final% goto eof

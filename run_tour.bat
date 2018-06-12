@@ -16,7 +16,7 @@ echo.
 title Knight's Tour Calculator - Running
 color 0F
 echo Executing program...
-"%cd%\knights_tour.exe" %sX% %sY% %bX% %bY%
+"%cd%\bin\knights_tour.exe" %sX% %sY% %bX% %bY%
 title Knight's Tour Calculator - Finished
 pause
 exit
