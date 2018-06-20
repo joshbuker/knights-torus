@@ -1,30 +1,29 @@
 #include "hal.hpp"
 #include "common.hpp"
 #include <Windows.h>
-#include <time.h>
-// #include <conio.h>
+#include <ctime>
 
 using namespace std;
 
-int mouseX,mouseY;
-clock_t begin,end;
+int mouse_x, mouse_y;
+clock_t start_time, end_time;
 
-void startWatch()
+void start_watch()
 {
-  begin = clock();
+  start_time = clock();
 }
 
-void stopWatch()
+void stop_watch()
 {
-  end = clock();
+  end_time = clock();
 }
 
-long watchTime()
+long watch_time()
 {
-  return (end-begin);
+  return (end_time-start_time);
 }
 
-void playBeep()
+void play_beep()
 {
   Beep(261,1000);
 }
@@ -36,7 +35,7 @@ struct CurPos
   operator bool() const { return x >= 0 && y >= 0; }
 };
 
-CurPos getCursorPos()
+CurPos get_cursor_pos()
 {
   CurPos pos;
   CONSOLE_SCREEN_BUFFER_INFO con;
@@ -50,11 +49,11 @@ CurPos getCursorPos()
   return pos;
 }
 
-void setCursorPos()
+void set_cursor_pos()
 {
-  CurPos mousePos = getCursorPos();
-  mouseX = mousePos.x;
-  mouseY = mousePos.y;
+  CurPos mouse_pos = get_cursor_pos();
+  mouse_x = mouse_pos.x;
+  mouse_y = mouse_pos.y;
 }
 
 void gotoxy( int column, int line )
@@ -69,21 +68,24 @@ void gotoxy( int column, int line )
   );
 }
 
-void printProgress(const int & totalMoves, const int & currentMove, const int & totalFailedMoves, const int & currentFailedMoves, const int & criticalPointsRemaining)
+void print_backup_progress()
 {
-  gotoxy(mouseX,mouseY);
-  cout << "Total Moves: ";
-  cout << totalMoves << endl;
-  cout << "Current Move: ";
-  cout << currentMove << endl;
-  if(totalFailedMoves > 0)
-  {
-    cout << endl;
+	cout << endl;
     cout << "# Total Failed Moves: ";
-    cout << totalFailedMoves << endl;
+    cout << total_failed_moves << endl;
     cout << "# Current Failed Moves: ";
-    cout << currentFailedMoves
+    cout << failed_moves.size() << endl;
     cout << "# Critical Points Remaining: ";
-    cout << criticalPointsRemaining
-  }
+    cout << critical_points.size() << endl;
+}
+
+void print_progress()
+{
+  gotoxy(mouse_x,mouse_y);
+  cout << "Total Moves: ";
+  cout << max_moves << endl;
+  cout << "Current Move: ";
+  cout << solution.size() << endl;
+  if(total_failed_moves > 0)
+	print_backup_progress();
 }
