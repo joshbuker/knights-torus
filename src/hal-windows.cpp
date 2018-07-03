@@ -40,8 +40,7 @@ CurPos get_cursor_pos()
   CurPos pos;
   CONSOLE_SCREEN_BUFFER_INFO con;
   HANDLE hcon = GetStdHandle(STD_OUTPUT_HANDLE);
-  if (hcon != INVALID_HANDLE_VALUE &&
-      GetConsoleScreenBufferInfo(hcon,&con))
+  if (hcon != INVALID_HANDLE_VALUE && GetConsoleScreenBufferInfo(hcon,&con))
   {
     pos.x = con.dwCursorPosition.X;
     pos.y = con.dwCursorPosition.Y;
@@ -70,13 +69,13 @@ void gotoxy( int column, int line )
 
 void print_backup_progress()
 {
-	cout << endl;
-    cout << "# Total Failed Moves: ";
-    cout << total_failed_moves << endl;
-    cout << "# Current Failed Moves: ";
-    cout << failed_moves.size() << endl;
-    cout << "# Critical Points Remaining: ";
-    cout << critical_points.size() << endl;
+  cout << endl;
+  cout << "# Total Failed Moves: ";
+  cout << total_failed_moves << endl;
+  cout << "# Current Failed Moves: ";
+  cout << failed_moves.size() << endl;
+  cout << "# Critical Points Remaining: ";
+  cout << critical_points.size() << endl;
 }
 
 void print_progress()
@@ -87,5 +86,5 @@ void print_progress()
   cout << "Current Move: ";
   cout << solution.size() << endl;
   if(total_failed_moves > 0)
-	print_backup_progress();
+    print_backup_progress();
 }
