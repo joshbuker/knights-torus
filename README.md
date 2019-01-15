@@ -1,14 +1,16 @@
-## **Disclaimer:** Run this at your own risk. I'm not responsible for anything that happens due to this code.
+# Knight's Tour
 
-You will need g++ to compile. (Install MinGW on Windows)
+Over-optimized knight's tour solver.
 
-Platforms Supported:
-* Windows
-* Mac OS X
+## Requirements
 
-Platforms Coming Soon™:
-* Linux
+* g++ compiler (c++11 needed for chrono)
 
-1. Run ```compile.bat``` or ```compile.sh``` to compile source code into executable
-2. Run ```run_tour.bat``` or ```run_tour.sh```
-3. Solution (if any) will be printed as `Tour Solution <width>x<height>.txt`
+## How to use
+
+1. Clone repo
+2. Create bin directory (`mkdir bin`)
+3. Run `compile-[os].[sh|bat]` to compile source code into executable
+4. Run executable `./bin/knights-tour.[bin|exe] [x] [y] [width] [height]`
+5. Solution (if any) will be printed as `Tour Solution <width>x<height>.txt`
+
