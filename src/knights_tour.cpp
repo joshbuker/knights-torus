@@ -1,4 +1,3 @@
-#include "common.hpp"
 #include "parameters.hpp"
 #include "solver.hpp"
 #include <unordered_map>
