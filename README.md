@@ -2,6 +2,14 @@
 
 Over-optimized knight's tour solver.
 
+## Screenshots
+
+![Screenshot of Knight's Tour in progress](README-1.png?raw=true "Knight's Tour in progress")
+
+![Screenshot of program verifying validity of solution](README-2.png?raw=true "Verifying validity of Knight's Tour solution")
+
+![Screenshot of program final output](README-3.png?raw=true "Final output")
+
 ## Requirements
 
 * g++ compiler (c++11 needed for chrono)
