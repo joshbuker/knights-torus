@@ -6,9 +6,7 @@ Over-optimized knight's tour solver.
 
 ![Screenshot of Knight's Tour in progress](README-1.png?raw=true "Knight's Tour in progress")
 
-![Screenshot of program verifying validity of solution](README-2.png?raw=true "Verifying validity of Knight's Tour solution")
-
-![Screenshot of program final output](README-3.png?raw=true "Final output")
+![Screenshot of program final output](README-2.png?raw=true "Final output")
 
 ## Requirements
 
