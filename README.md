@@ -48,8 +48,9 @@ MacBook Pro averages about 6.5 seconds to solve a 128x128 board starting at
 
 ## Usage
 
-1. Clone repo
-2. Create bin directory (`mkdir bin`)
-3. Run `compile-[os].[sh|bat]` to compile source code into executable
-4. Run executable `./bin/knights-tour.[bin|exe] [x] [y] [width] [height]`
-5. Solution (if any) will be printed as `Tour Solution <width>x<height>.txt`
+1. Clone the repo
+2. Run `compile-[os].[sh|bat]` to compile the source code into an executable
+3. Run executable `./bin/knights-tour.[bin|exe] [x] [y] [width] [height]`
+
+The knight's tour solution (if one is found) will be printed as
+`Tour Solution <width>x<height>.txt`.
